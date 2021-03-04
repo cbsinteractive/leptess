@@ -129,6 +129,19 @@ impl TessApi {
         }
     }
 
+    pub fn set_variable(&mut self, variable: &str, value: &str) -> Result<(), ()> {
+        let variable_name = CString::new(variable).unwrap();
+        let value = CString::new(value).unwrap();
+        unsafe {
+            let ok = capi::TessBaseAPISetVariable(self.raw, variable_name.as_ptr(), value.as_ptr());
+            if ok >= 1 {
+                Ok(())
+            } else {
+                Err(())
+            }
+        }
+    }
+
     pub fn get_utf8_text(&self) -> Result<String, std::str::Utf8Error> {
         unsafe {
             let re: Result<String, std::str::Utf8Error>;

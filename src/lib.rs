@@ -148,6 +148,11 @@ impl LepTess {
         self.tess_api.set_rectangle(b)
     }
 
+    /// Set custom variables in the engine.
+    pub fn set_variable(&mut self, variable: &str, value: &str) -> Result<(), ()> {
+        self.tess_api.set_variable(variable, value)
+    }
+
     /// Extract text from current selected region of the image. By default, it is the full page.
     /// But it can be changed through [set_rectangle](struct.LepTess.html#method.set_rectangle)
     /// api.
